@@ -1,0 +1,170 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Settings {
+  id                    Int     @id @default(1)
+  sequentialLessons     Boolean @default(true)
+  testMode              String  @default("per_lesson") // "per_lesson" | "final"
+  passingScore          Int     @default(80)
+  telegramEnabled       Boolean @default(false)
+  emailEnabled          Boolean @default(false)
+  googleSheetsEnabled   Boolean @default(false)
+  welcomeTitle          String  @default("Добро пожаловать в обучение кураторов GlucoseOnline")
+  welcomeText           String  @default("Эта платформа поможет вам освоить работу с админ-панелью GlucoseOnline. Пройдите видео-уроки, сдайте тест и отправьте заявку на доступ.")
+  applicationConfirmMsg String  @default("Заявка отправлена! Доступ к admin.glucoseonline.kz будет выдан в течение 24 часов.")
+}
+
+model Topic {
+  id        Int      @id @default(autoincrement())
+  title     String
+  order     Int      @default(0)
+  lessons   Lesson[]
+  createdAt DateTime @default(now())
+}
+
+model Lesson {
+  id          Int              @id @default(autoincrement())
+  title       String
+  description String           @default("")
+  videoUrl    String
+  videoType   String           @default("youtube") // youtube | vimeo | direct
+  checklist   String           @default("[]") // JSON array of strings
+  order       Int              @default(0)
+  topicId     Int
+  topic       Topic            @relation(fields: [topicId], references: [id], onDelete: Cascade)
+  test        Test?
+  progress    LessonProgress[]
+  createdAt   DateTime         @default(now())
+}
+
+model Test {
+  id        Int        @id @default(autoincrement())
+  title     String
+  lessonId  Int?       @unique
+  lesson    Lesson?    @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  isFinal   Boolean    @default(false)
+  questions Question[]
+  results   TestResult[]
+  createdAt DateTime   @default(now())
+}
+
+model Question {
+  id            Int      @id @default(autoincrement())
+  testId        Int
+  test          Test     @relation(fields: [testId], references: [id], onDelete: Cascade)
+  text          String
+  type          String   @default("single") // single | multiple | text
+  options       String   @default("[]") // JSON: [{text, isCorrect}]
+  correctAnswer String   @default("") // for text type
+  order         Int      @default(0)
+}
+
+model Curator {
+  id               Int              @id @default(autoincrement())
+  email            String?          @unique
+  phone            String?          @unique
+  firstName        String?
+  lastName         String?
+  telegramChatId   String?          @unique
+  telegramLinkCode String?          @unique
+  createdAt        DateTime         @default(now())
+  progress         LessonProgress[]
+  testResults      TestResult[]
+  applications     Application[]
+  otpCodes         OtpCode[]
+}
+
+model OtpCode {
+  id        Int      @id @default(autoincrement())
+  code      String
+  email     String?
+  phone     String?
+  curatorId Int?
+  curator   Curator? @relation(fields: [curatorId], references: [id], onDelete: Cascade)
+  expiresAt DateTime
+  used      Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+model LessonProgress {
+  id              Int      @id @default(autoincrement())
+  curatorId       Int
+  curator         Curator  @relation(fields: [curatorId], references: [id], onDelete: Cascade)
+  lessonId        Int
+  lesson          Lesson   @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  watchedPercent  Int      @default(0)
+  completed       Boolean  @default(false)
+  completedAt     DateTime?
+  updatedAt       DateTime @updatedAt
+
+  @@unique([curatorId, lessonId])
+}
+
+model TestResult {
+  id        Int      @id @default(autoincrement())
+  curatorId Int
+  curator   Curator  @relation(fields: [curatorId], references: [id], onDelete: Cascade)
+  testId    Int
+  test      Test     @relation(fields: [testId], references: [id], onDelete: Cascade)
+  score     Int
+  passed    Boolean
+  answers   String   @default("{}") // JSON
+  createdAt DateTime @default(now())
+}
+
+model FaqItem {
+  id        Int      @id @default(autoincrement())
+  question  String
+  answer    String
+  category  String   @default("Общее")
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+}
+
+model KnowledgeBase {
+  id        Int      @id @default(autoincrement())
+  title     String
+  content   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Application {
+  id          Int      @id @default(autoincrement())
+  curatorId   Int
+  curator     Curator  @relation(fields: [curatorId], references: [id], onDelete: Cascade)
+  firstName   String
+  lastName    String
+  phone       String
+  email       String
+  streamName  String
+  testScore   Int?
+  status      String   @default("new") // new | granted
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model ChatMessage {
+  id        Int      @id @default(autoincrement())
+  sessionId String
+  role      String   // user | assistant
+  content   String
+  escalated Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+model EscalatedQuestion {
+  id        Int      @id @default(autoincrement())
+  sessionId String
+  question  String
+  email     String?
+  phone     String?
+  resolved  Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
