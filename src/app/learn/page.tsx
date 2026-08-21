@@ -81,20 +81,20 @@ export default function LearnPage() {
     <>
       <PublicHeader />
       <main className="max-w-4xl mx-auto px-4 py-8">
-        <h1 className="text-2xl font-bold text-primary mb-2">Обучение</h1>
+        <h1 className="text-2xl font-bold text-primary mb-2">Оқыту</h1>
         <p className="text-muted mb-6">
-          Пройдите все уроки по порядку. Следующий урок откроется после
-          просмотра предыдущего.
+          Барлық сабақтарды ретімен өтіңіз. Келесі сабақ алдыңғысын
+          көргеннен кейін ашылады.
         </p>
 
         {!curatorId && (
           <div className="mb-6">
             <Card className="bg-accent/10 border-accent/30">
               <p className="text-sm text-primary mb-3">
-                Войдите, чтобы сохранять прогресс просмотра
+                Қарау прогресін сақтау үшін кіріңіз
               </p>
               <Button size="sm" onClick={() => setShowAuth(true)}>
-                Войти
+                Кіру
               </Button>
             </Card>
             {showAuth && (
@@ -160,7 +160,7 @@ export default function LearnPage() {
                       {!lesson.locked ? (
                         <Link href={`/learn/${lesson.id}`}>
                           <Button size="sm" className="flex items-center gap-1">
-                            {lesson.completed ? "Повторить" : "Смотреть"}
+                            {lesson.completed ? "Қайталау" : "Қарау"}
                             <ChevronRight size={16} />
                           </Button>
                         </Link>

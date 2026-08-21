@@ -17,7 +17,7 @@ export async function POST(req: NextRequest) {
       if (!code) {
         await sendTelegramMessage(
           chatId,
-          "👋 Добро пожаловать! Для привязки аккаунта перейдите по ссылке с сайта обучения и нажмите Start."
+          "👋 Қош келдіңіз! Аккаунтты байлау үшін оқыту сайтындағы сілтеме арқылы өтіп, Start басыңыз."
         );
         return NextResponse.json({ ok: true });
       }
@@ -37,12 +37,12 @@ export async function POST(req: NextRequest) {
 
         await sendTelegramMessage(
           chatId,
-          "✅ Telegram успешно привязан. Теперь коды для входа будут приходить сюда.\n\nВернитесь на сайт и нажмите «Получить код»."
+          "✅ Telegram сәтті байланды. Енді кіру кодтары осында келеді.\n\nСайтқа оралып, «Код алу» батырмасын басыңыз."
         );
       } else {
         await sendTelegramMessage(
           chatId,
-          "❌ Код не найден или уже использован. Запросите новую ссылку на сайте."
+          "❌ Код табылмады немесе қолданылған. Сайттан жаңа сілтеме сұраңыз."
         );
       }
     }

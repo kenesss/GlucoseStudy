@@ -50,7 +50,7 @@ export async function POST(req: NextRequest) {
   if (action === "send") {
     if (!email && !rawPhone) {
       return NextResponse.json(
-        { error: "Укажите телефон или email" },
+        { error: "Телефон немесе email көрсетіңіз" },
         { status: 400 }
       );
     }
@@ -74,7 +74,7 @@ export async function POST(req: NextRequest) {
 
     if (await checkRateLimit(curator.id)) {
       return NextResponse.json(
-        { error: "Подождите 60 секунд перед повторным запросом кода" },
+        { error: "Кодты қайта сұрау үшін 60 секунд күтіңіз" },
         { status: 429 }
       );
     }
@@ -91,16 +91,16 @@ export async function POST(req: NextRequest) {
       if (curator.telegramChatId) {
         const sent = await sendTelegramMessage(
           curator.telegramChatId,
-          `🔐 Ваш код для входа на GlucoseOnline:\n\n${otpCode}\n\nКод действителен 5 минут.`
+          `🔐 GlucoseOnline кіру кодыңыз:\n\n${otpCode}\n\nКод 5 минут жарамды.`
         );
         if (!sent) {
           return NextResponse.json(
-            { error: "Не удалось отправить код в Telegram. Попробуйте позже." },
+            { error: "Telegram-ға код жіберілмеді. Кейінірек көріңіз." },
             { status: 500 }
           );
         }
         response.method = "telegram";
-        response.message = "Код отправлен в Telegram";
+        response.message = "Код Telegram-ға жіберілді";
       } else {
         const linkCode = nanoid(8);
         await prisma.curator.update({
@@ -110,7 +110,7 @@ export async function POST(req: NextRequest) {
         response.method = "link_required";
         response.telegramLinkUrl = buildTelegramDeepLink(linkCode);
         response.message =
-          "Сначала привяжите Telegram — код будет отправлен туда";
+          "Алдымен Telegram-ды байлаңыз — код сол жаққа жіберіледі";
         await prisma.otpCode.updateMany({
           where: { curatorId: curator.id, code: otpCode, used: false },
           data: { used: true },
@@ -120,16 +120,16 @@ export async function POST(req: NextRequest) {
       const sent = await sendOtpEmail(email, otpCode);
       if (sent) {
         response.method = "email";
-        response.message = "Код отправлен на email";
+        response.message = "Код email-ге жіберілді";
       } else if (process.env.NODE_ENV === "development") {
         response.method = "dev";
         response.devOtp = otpCode;
-        response.message = "SMTP не настроен — код показан ниже (dev)";
+        response.message = "SMTP бапталмаған — код төменде көрсетілген (dev)";
       } else {
         return NextResponse.json(
           {
             error:
-              "Email-отправка недоступна. Войдите по номеру телефона через Telegram.",
+              "Email жіберу қолжетімсіз. Telegram арқылы телефонмен кіріңіз.",
           },
           { status: 503 }
         );
@@ -148,7 +148,7 @@ export async function POST(req: NextRequest) {
 
   if (action === "verify") {
     if (!code || (!email && !rawPhone)) {
-      return NextResponse.json({ error: "Неверные данные" }, { status: 400 });
+      return NextResponse.json({ error: "Деректер қате" }, { status: 400 });
     }
 
     const phone = rawPhone ? normalizePhone(rawPhone) : null;
@@ -165,7 +165,7 @@ export async function POST(req: NextRequest) {
 
     if (!otpRecord || !otpRecord.curator) {
       return NextResponse.json(
-        { error: "Неверный или просроченный код" },
+        { error: "Қате немесе мерзімі өткен код" },
         { status: 400 }
       );
     }

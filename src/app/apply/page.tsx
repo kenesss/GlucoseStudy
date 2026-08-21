@@ -53,11 +53,11 @@ export default function ApplyPage() {
       if (!res.ok) throw new Error(data.error);
       setConfirmMsg(
         data.confirmMessage ||
-          "Заявка отправлена! Доступ будет выдан в течение 24 часов."
+          "Өтінім жіберілді! admin.glucoseonline.kz қолжетімділігі 24 сағат ішінде беріледі."
       );
       setSubmitted(true);
     } catch (e) {
-      setError(e instanceof Error ? e.message : "Ошибка отправки");
+      setError(e instanceof Error ? e.message : "Жіберу қатесі");
     } finally {
       setLoading(false);
     }
@@ -69,7 +69,7 @@ export default function ApplyPage() {
         <PublicHeader />
         <main className="max-w-4xl mx-auto px-4 py-8">
           <h1 className="text-2xl font-bold text-primary mb-4">
-            Заявка на доступ
+            Қолжетімділікке өтінім
           </h1>
           <CuratorAuth onAuthenticated={handleAuth} />
         </main>
@@ -88,7 +88,7 @@ export default function ApplyPage() {
               className="text-accent-dark mx-auto mb-4"
             />
             <h1 className="text-2xl font-bold text-primary mb-3">
-              Заявка отправлена!
+              Өтінім жіберілді!
             </h1>
             <p className="text-muted">{confirmMsg}</p>
           </Card>
@@ -104,14 +104,14 @@ export default function ApplyPage() {
         <main className="max-w-4xl mx-auto px-4 py-8">
           <Card className="text-center max-w-md mx-auto">
             <h1 className="text-xl font-bold text-primary mb-2">
-              Заявка пока недоступна
+              Өтінім әзірге қолжетімсіз
             </h1>
             <p className="text-muted mb-4">
-              Сначала пройдите все видео-уроки и сдайте тест с проходным
-              баллом.
+              Алдымен барлық бейнесабақтарды өтіп, өту балымен тест
+              тапсырыңыз.
             </p>
             <Button onClick={() => (window.location.href = "/learn")}>
-              Перейти к обучению
+              Оқытуға өту
             </Button>
           </Card>
         </main>
@@ -124,10 +124,10 @@ export default function ApplyPage() {
       <PublicHeader />
       <main className="max-w-4xl mx-auto px-4 py-8 animate-fade-in">
         <h1 className="text-2xl font-bold text-primary mb-2">
-          Заявка на доступ
+          Қолжетімділікке өтінім
         </h1>
         <p className="text-muted mb-6">
-          Заполните форму — мы выдадим доступ к admin.glucoseonline.kz
+          Форманы толтырыңыз — admin.glucoseonline.kz қолжетімділігін береміз
         </p>
 
         <Card className="max-w-lg">
@@ -135,7 +135,7 @@ export default function ApplyPage() {
             <div className="grid grid-cols-2 gap-3">
               <div>
                 <label className="text-sm font-medium text-primary block mb-1">
-                  Имя *
+                  Аты *
                 </label>
                 <input
                   required
@@ -148,7 +148,7 @@ export default function ApplyPage() {
               </div>
               <div>
                 <label className="text-sm font-medium text-primary block mb-1">
-                  Фамилия *
+                  Тегі *
                 </label>
                 <input
                   required
@@ -191,11 +191,11 @@ export default function ApplyPage() {
             </div>
             <div>
               <label className="text-sm font-medium text-primary block mb-1">
-                Поток *
+                Ағын *
               </label>
               <input
                 required
-                placeholder="Название или номер потока"
+                placeholder="Ағынның атауы немесе нөмірі"
                 value={form.streamName}
                 onChange={(e) =>
                   setForm((f) => ({ ...f, streamName: e.target.value }))
@@ -214,7 +214,7 @@ export default function ApplyPage() {
               className="w-full flex items-center justify-center gap-2"
             >
               <Send size={18} />
-              {loading ? "Отправка..." : "Отправить заявку"}
+              {loading ? "Жіберілуде..." : "Өтінім жіберу"}
             </Button>
           </form>
         </Card>

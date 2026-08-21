@@ -15,11 +15,11 @@ import { useState } from "react";
 import { cn } from "@/lib/utils";
 
 const navItems = [
-  { href: "/", label: "Главная", icon: Home },
-  { href: "/learn", label: "Обучение", icon: BookOpen },
+  { href: "/", label: "Басты бет", icon: Home },
+  { href: "/learn", label: "Оқыту", icon: BookOpen },
   { href: "/faq", label: "FAQ", icon: HelpCircle },
   { href: "/chat", label: "Чат", icon: MessageCircle },
-  { href: "/apply", label: "Заявка", icon: ClipboardList },
+  { href: "/apply", label: "Өтінім", icon: ClipboardList },
 ];
 
 export function PublicHeader() {
@@ -54,7 +54,7 @@ export function PublicHeader() {
         <button
           className="md:hidden p-2 -mr-2"
           onClick={() => setMenuOpen(!menuOpen)}
-          aria-label="Меню"
+          aria-label="Мәзір"
         >
           {menuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>

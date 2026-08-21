@@ -43,10 +43,10 @@ export default function FaqPage() {
       <PublicHeader />
       <main className="max-w-4xl mx-auto px-4 py-8">
         <h1 className="text-2xl font-bold text-primary mb-2">
-          Частые вопросы
+          Жиі қойылатын сұрақтар
         </h1>
         <p className="text-muted mb-6">
-          Ответы на типовые вопросы о работе куратора
+          Куратор жұмысы туралы типтік сұрақтарға жауаптар
         </p>
 
         <div className="relative mb-4">
@@ -56,7 +56,7 @@ export default function FaqPage() {
           />
           <input
             type="text"
-            placeholder="Поиск..."
+            placeholder="Іздеу..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             className="w-full pl-10 pr-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary/30"
@@ -74,7 +74,7 @@ export default function FaqPage() {
                   : "border-gray-200 hover:border-gray-300"
               )}
             >
-              Все
+              Барлығы
             </button>
             {categories.map((cat) => (
               <button
@@ -119,7 +119,7 @@ export default function FaqPage() {
             </Card>
           ))}
           {filtered.length === 0 && (
-            <p className="text-center text-muted py-8">Ничего не найдено</p>
+            <p className="text-center text-muted py-8">Ештеңе табылмады</p>
           )}
         </div>
       </main>

@@ -16,9 +16,9 @@ model Settings {
   telegramEnabled       Boolean @default(false)
   emailEnabled          Boolean @default(false)
   googleSheetsEnabled   Boolean @default(false)
-  welcomeTitle          String  @default("Добро пожаловать в обучение кураторов GlucoseOnline")
-  welcomeText           String  @default("Эта платформа поможет вам освоить работу с админ-панелью GlucoseOnline. Пройдите видео-уроки, сдайте тест и отправьте заявку на доступ.")
-  applicationConfirmMsg String  @default("Заявка отправлена! Доступ к admin.glucoseonline.kz будет выдан в течение 24 часов.")
+  welcomeTitle          String  @default("GlucoseOnline кураторларын оқытуға қош келдіңіз")
+  welcomeText           String  @default("Бұл платформа GlucoseOnline админ-панелімен жұмысты меңгеруге көмектеседі. Бейнесабақтарды өтіп, тест тапсырып, қолжетімділікке өтінім жіберіңіз.")
+  applicationConfirmMsg String  @default("Өтінім жіберілді! admin.glucoseonline.kz қолжетімділігі 24 сағат ішінде беріледі.")
 }
 
 model Topic {

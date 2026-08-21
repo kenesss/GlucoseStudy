@@ -14,7 +14,7 @@ export async function POST(req: NextRequest) {
 
   if (!firstName || !lastName || !phone || !email || !streamName) {
     return NextResponse.json(
-      { error: "Заполните все обязательные поля" },
+      { error: "Барлық міндетті өрістерді толтырыңыз" },
       { status: 400 }
     );
   }
@@ -50,7 +50,7 @@ export async function POST(req: NextRequest) {
 
   if (!canApply) {
     return NextResponse.json(
-      { error: "Сначала завершите обучение и тест" },
+      { error: "Алдымен оқыту мен тестті аяқтаңыз" },
       { status: 403 }
     );
   }

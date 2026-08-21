@@ -16,7 +16,7 @@ export default function ChatPage() {
     {
       role: "assistant",
       content:
-        "Привет! Я помощник по работе с admin.glucoseonline.kz. Задайте вопрос о работе куратора.",
+        "Сәлем! Мен admin.glucoseonline.kz-пен жұмыс бойынша көмекшімін. Куратор жұмысы туралы сұрақ қойыңыз.",
     },
   ]);
   const [input, setInput] = useState("");
@@ -31,7 +31,7 @@ export default function ChatPage() {
   async function send(escalate = false) {
     if (!input.trim() && !escalate) return;
     const userMsg = escalate
-      ? "Хочу задать вопрос специалисту"
+      ? "Маманға сұрақ қойғым келеді"
       : input.trim();
     if (!escalate) {
       setMessages((prev) => [...prev, { role: "user", content: userMsg }]);
@@ -66,7 +66,7 @@ export default function ChatPage() {
         ...prev,
         {
           role: "assistant",
-          content: "Произошла ошибка. Попробуйте позже.",
+          content: "Қате орын алды. Кейінірек көріңіз.",
         },
       ]);
     } finally {
@@ -79,9 +79,9 @@ export default function ChatPage() {
       <PublicHeader />
       <main className="max-w-4xl mx-auto px-4 py-4 flex flex-col h-[calc(100vh-3.5rem)]">
         <div className="mb-3">
-          <h1 className="text-xl font-bold text-primary">Чат-помощник</h1>
+          <h1 className="text-xl font-bold text-primary">Чат-көмекші</h1>
           <p className="text-sm text-muted">
-            Задайте вопрос о работе с админ-панелью
+            Админ-панельмен жұмыс туралы сұрақ қойыңыз
           </p>
         </div>
 
@@ -123,7 +123,7 @@ export default function ChatPage() {
                   <Bot size={16} className="text-primary animate-pulse-dot" />
                 </div>
                 <div className="px-4 py-2.5 rounded-2xl bg-gray-50 text-sm text-muted">
-                  Печатает...
+                  Жазып жатыр...
                 </div>
               </div>
             )}
@@ -133,7 +133,7 @@ export default function ChatPage() {
           <div className="border-t border-gray-100 p-3">
             {messages.some((m) => m.escalated) && (
               <p className="text-xs text-muted mb-2 text-center">
-                Не нашли ответ? Нажмите кнопку ниже
+                Жауап таппадыңыз ба? Төмендегі батырманы басыңыз
               </p>
             )}
             <div className="flex gap-2">
@@ -142,7 +142,7 @@ export default function ChatPage() {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && !loading && send()}
-                placeholder="Ваш вопрос..."
+                placeholder="Сұрағыңыз..."
                 className="flex-1 px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary/30 text-sm"
               />
               <Button
@@ -161,7 +161,7 @@ export default function ChatPage() {
               className="w-full mt-2 flex items-center justify-center gap-1 text-sm"
             >
               <MessageCircle size={14} />
-              Задать вопрос человеку
+              Адамға сұрақ қою
             </Button>
           </div>
         </Card>

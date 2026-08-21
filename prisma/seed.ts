@@ -12,9 +12,11 @@ async function main() {
       sequentialLessons: true,
       testMode: "per_lesson",
       passingScore: 80,
-      welcomeTitle: "Добро пожаловать в обучение кураторов GlucoseOnline",
+      welcomeTitle: "GlucoseOnline кураторларын оқытуға қош келдіңіз",
       welcomeText:
-        "Эта платформа поможет вам освоить работу с админ-панелью GlucoseOnline. Пройдите видео-уроки, сдайте тест и отправьте заявку на доступ.",
+        "Бұл платформа GlucoseOnline админ-панелімен жұмысты меңгеруге көмектеседі. Бейнесабақтарды өтіп, тест тапсырып, қолжетімділікке өтінім жіберіңіз.",
+      applicationConfirmMsg:
+        "Өтінім жіберілді! admin.glucoseonline.kz қолжетімділігі 24 сағат ішінде беріледі.",
     },
   });
 

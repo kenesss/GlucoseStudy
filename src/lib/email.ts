@@ -19,11 +19,11 @@ export async function sendOtpEmail(
     await transporter.sendMail({
       from: user,
       to,
-      subject: "Код для входа — GlucoseOnline",
+      subject: "Кіру коды — GlucoseOnline",
       html: `
-        <p>Ваш код для входа на платформу обучения кураторов:</p>
+        <p>Кураторларды оқыту платформасына кіру кодыңыз:</p>
         <p style="font-size: 24px; font-weight: bold; letter-spacing: 4px;">${code}</p>
-        <p style="color: #666;">Код действителен 5 минут.</p>
+        <p style="color: #666;">Код 5 минут жарамды.</p>
       `,
     });
     return true;

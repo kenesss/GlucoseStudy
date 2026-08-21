@@ -74,7 +74,7 @@ export function CuratorAuth({ onAuthenticated }: CuratorAuthProps) {
       if (data.devOtp) setDevOtp(data.devOtp);
       setStep("otp");
     } catch (e) {
-      setError(e instanceof Error ? e.message : "Ошибка отправки кода");
+      setError(e instanceof Error ? e.message : "Кодты жіберу қатесі");
     } finally {
       setLoading(false);
     }
@@ -86,7 +86,7 @@ export function CuratorAuth({ onAuthenticated }: CuratorAuthProps) {
       await sendOtp();
     } else {
       setError(
-        "Telegram ещё не привязан. Нажмите Start в боте и попробуйте снова."
+        "Telegram әлі байланбаған. Ботта Start басып, қайта көріңіз."
       );
     }
   }
@@ -108,7 +108,7 @@ export function CuratorAuth({ onAuthenticated }: CuratorAuthProps) {
       if (!res.ok) throw new Error(data.error);
       onAuthenticated(data.curatorId);
     } catch (e) {
-      setError(e instanceof Error ? e.message : "Неверный код");
+      setError(e instanceof Error ? e.message : "Қате код");
     } finally {
       setLoading(false);
     }
@@ -116,24 +116,24 @@ export function CuratorAuth({ onAuthenticated }: CuratorAuthProps) {
 
   const otpHint =
     sendMethod === "telegram"
-      ? "Код отправлен в Telegram"
+      ? "Код Telegram-ға жіберілді"
       : sendMethod === "email"
-        ? `Код отправлен на ${contact}`
-        : "Введите код";
+        ? `Код ${contact} мекенжайына жіберілді`
+        : "Кодты енгізіңіз";
 
   return (
     <Card className="max-w-md mx-auto animate-fade-in">
       <h2 className="text-xl font-bold text-primary mb-2">
-        {step === "contact" && "Войти для сохранения прогресса"}
-        {step === "otp" && "Введите код"}
-        {step === "link" && "Привязка Telegram"}
+        {step === "contact" && "Прогресті сақтау үшін кіру"}
+        {step === "otp" && "Кодты енгізіңіз"}
+        {step === "link" && "Telegram байлау"}
       </h2>
       <p className="text-sm text-muted mb-4">
         {step === "contact" &&
-          "Укажите номер телефона — код придёт в Telegram"}
+          "Телефон нөмірін көрсетіңіз — код Telegram-ға келеді"}
         {step === "otp" && otpHint}
         {step === "link" &&
-          "Для получения кода нужно привязать Telegram. Нажмите кнопку ниже, затем Start в боте."}
+          "Код алу үшін Telegram-ды байлау керек. Төмендегі батырманы басып, ботта Start басыңыз."}
       </p>
 
       {step === "contact" && (
@@ -174,12 +174,12 @@ export function CuratorAuth({ onAuthenticated }: CuratorAuthProps) {
             disabled={!contact || loading}
             className="w-full flex items-center justify-center gap-2"
           >
-            {loading ? "Отправка..." : "Получить код"}
+            {loading ? "Жіберілуде..." : "Код алу"}
             <ArrowRight size={18} />
           </Button>
           {contactType === "email" && (
             <p className="text-xs text-muted mt-2 text-center">
-              Email — резервный способ, если Telegram недоступен
+              Email — Telegram қолжетімсіз болса, қосалқы тәсіл
             </p>
           )}
         </>
@@ -198,7 +198,7 @@ export function CuratorAuth({ onAuthenticated }: CuratorAuthProps) {
               className="w-full flex items-center justify-center gap-2"
             >
               <MessageCircle size={18} />
-              Привязать Telegram
+              Telegram байлау
             </Button>
           </a>
           <Button
@@ -211,8 +211,8 @@ export function CuratorAuth({ onAuthenticated }: CuratorAuthProps) {
               className={checkingTelegram ? "animate-spin" : ""}
             />
             {checkingTelegram
-              ? "Проверка..."
-              : "Я привязал — получить код"}
+              ? "Тексерілуде..."
+              : "Байладым — код алу"}
           </Button>
           <button
             onClick={() => {
@@ -221,7 +221,7 @@ export function CuratorAuth({ onAuthenticated }: CuratorAuthProps) {
             }}
             className="w-full mt-2 text-sm text-muted hover:text-primary"
           >
-            Изменить номер телефона
+            Телефон нөмірін өзгерту
           </button>
         </>
       )}
@@ -246,7 +246,7 @@ export function CuratorAuth({ onAuthenticated }: CuratorAuthProps) {
             disabled={otp.length !== 6 || loading}
             className="w-full"
           >
-            {loading ? "Проверка..." : "Войти"}
+            {loading ? "Тексерілуде..." : "Кіру"}
           </Button>
           <button
             onClick={() => {
@@ -256,7 +256,7 @@ export function CuratorAuth({ onAuthenticated }: CuratorAuthProps) {
             }}
             className="w-full mt-2 text-sm text-muted hover:text-primary"
           >
-            Изменить {contactType === "email" ? "email" : "телефон"}
+            {contactType === "email" ? "Email-ді" : "Телефонды"} өзгерту
           </button>
         </>
       )}

@@ -18,7 +18,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({
       sessionId: sid,
       answer:
-        "Ваш вопрос отправлен специалисту. Мы свяжемся с вами в ближайшее время.",
+        "Сұрағыңыз маманға жіберілді. Жақын арада сізбен байланысамыз.",
       escalated: true,
     });
   }

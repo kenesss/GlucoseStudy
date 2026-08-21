@@ -53,19 +53,19 @@ export default function HomePage() {
         <section className="text-center mb-10 animate-fade-in">
           <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-1.5 rounded-full text-sm font-medium mb-4">
             <BookOpen size={16} />
-            Обучение кураторов
+            Кураторларды оқыту
           </div>
           <h1 className="text-3xl sm:text-4xl font-bold text-primary mb-4 leading-tight">
-            Добро пожаловать в обучение кураторов{" "}
+            Кураторларды оқытуға қош келдіңіз{" "}
             <span className="text-accent-dark">GlucoseOnline</span>
           </h1>
           <p className="text-muted text-lg max-w-2xl mx-auto mb-8">
-            Освойте работу с admin.glucoseonline.kz: пройдите видео-уроки,
-            сдайте тест и получите доступ к админ-панели.
+            admin.glucoseonline.kz-пен жұмысты меңгеріңіз: бейнесабақтарды
+            өтіңіз, тест тапсырыңыз және админ-панельге қолжетімділік алыңыз.
           </p>
 
           <ProgressBar
-            steps={["Видео", "Тест", "Заявка"]}
+            steps={["Бейне", "Тест", "Өтінім"]}
             current={currentStep}
           />
 
@@ -73,10 +73,10 @@ export default function HomePage() {
             <Card className="max-w-md mx-auto mb-6">
               <div className="flex items-center justify-between mb-3">
                 <span className="text-sm font-medium text-primary">
-                  Ваш прогресс
+                  Сіздің прогресіңіз
                 </span>
                 <span className="text-sm text-muted">
-                  {progress.completedLessons}/{progress.totalLessons} уроков
+                  {progress.completedLessons}/{progress.totalLessons} сабақ
                 </span>
               </div>
               <div className="w-full bg-gray-100 rounded-full h-3 mb-3">
@@ -89,13 +89,13 @@ export default function HomePage() {
                 <Link href="/apply">
                   <Button variant="secondary" className="w-full flex items-center justify-center gap-2">
                     <CheckCircle size={18} />
-                    Подать заявку на доступ
+                    Қолжетімділікке өтінім беру
                   </Button>
                 </Link>
               ) : (
                 <Link href="/learn">
                   <Button className="w-full flex items-center justify-center gap-2">
-                    Продолжить обучение
+                    Оқытуды жалғастыру
                     <ArrowRight size={18} />
                   </Button>
                 </Link>
@@ -105,7 +105,7 @@ export default function HomePage() {
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <Link href="/learn">
                 <Button size="lg" variant="secondary" className="w-full sm:w-auto flex items-center gap-2">
-                  Начать обучение
+                  Оқытуды бастау
                   <ArrowRight size={20} />
                 </Button>
               </Link>
@@ -116,7 +116,7 @@ export default function HomePage() {
                   onClick={() => setShowAuth(true)}
                   className="w-full sm:w-auto"
                 >
-                  Войти для сохранения прогресса
+                  Прогресті сақтау үшін кіру
                 </Button>
               )}
             </div>
@@ -133,18 +133,18 @@ export default function HomePage() {
           {[
             {
               step: "1",
-              title: "Видео-уроки",
-              desc: "Пошаговые инструкции по работе с админ-панелью",
+              title: "Бейнесабақтар",
+              desc: "Админ-панельмен жұмыс істеу бойынша қадамдық нұсқаулықтар",
             },
             {
               step: "2",
-              title: "Тестирование",
-              desc: "Проверка знаний после каждого раздела",
+              title: "Тестілеу",
+              desc: "Әр бөлімнен кейін білімді тексеру",
             },
             {
               step: "3",
-              title: "Заявка на доступ",
-              desc: "Автоматическая отправка данных для получения доступа",
+              title: "Қолжетімділікке өтінім",
+              desc: "Қолжетімділік алу үшін деректерді автоматты жіберу",
             },
           ].map((item) => (
             <Card key={item.step} className="text-center">

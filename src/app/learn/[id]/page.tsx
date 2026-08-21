@@ -110,7 +110,7 @@ export default function LessonPage({
           href="/learn"
           className="inline-flex items-center gap-1 text-sm text-muted hover:text-primary mb-4"
         >
-          <ArrowLeft size={16} /> Назад к урокам
+          <ArrowLeft size={16} /> Сабақтарға қайту
         </Link>
 
         <p className="text-sm text-accent-dark font-medium mb-1">
@@ -153,7 +153,7 @@ export default function LessonPage({
           </div>
           {completed ? (
             <span className="text-sm text-accent-dark font-medium flex items-center gap-1">
-              <CheckCircle size={16} /> Просмотрено
+              <CheckCircle size={16} /> Қаралды
             </span>
           ) : (
             <span className="text-sm text-muted">{watchedPercent}%</span>
@@ -161,14 +161,14 @@ export default function LessonPage({
         </div>
 
         <Card className="mb-4">
-          <h2 className="font-semibold text-primary mb-2">Описание</h2>
+          <h2 className="font-semibold text-primary mb-2">Сипаттама</h2>
           <p className="text-muted leading-relaxed">{lesson.description}</p>
         </Card>
 
         {checklist.length > 0 && (
           <Card className="mb-6">
             <h2 className="font-semibold text-primary mb-3">
-              Что нужно запомнить
+              Не есте сақтау керек
             </h2>
             <ul className="space-y-2">
               {checklist.map((item, i) => (
@@ -192,7 +192,7 @@ export default function LessonPage({
               className="w-full flex items-center justify-center gap-2"
             >
               <ClipboardCheck size={20} />
-              Пройти тест
+              Тест тапсыру
             </Button>
           </Link>
         )}

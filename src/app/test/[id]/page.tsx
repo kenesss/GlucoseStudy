@@ -67,7 +67,7 @@ export default function TestPage({
       if (!res.ok) throw new Error(data.error);
       setResult(data);
     } catch (e) {
-      alert(e instanceof Error ? e.message : "Ошибка");
+      alert(e instanceof Error ? e.message : "Қате");
     } finally {
       setSubmitting(false);
     }
@@ -96,23 +96,23 @@ export default function TestPage({
               <XCircle size={48} className="text-red-500 mx-auto mb-4" />
             )}
             <h1 className="text-2xl font-bold text-primary mb-2">
-              {result.passed ? "Тест пройден!" : "Тест не пройден"}
+              {result.passed ? "Тест тапсырылды!" : "Тест тапсырылмады"}
             </h1>
             <p className="text-muted mb-1">
-              Ваш результат: <strong>{result.score}%</strong>
+              Сіздің нәтижеңіз: <strong>{result.score}%</strong>
             </p>
             <p className="text-sm text-muted mb-6">
-              Проходной балл: {result.passingScore}%
+              Өту балы: {result.passingScore}%
             </p>
             {result.passed ? (
               <Link href="/apply">
                 <Button variant="secondary" className="w-full">
-                  Подать заявку на доступ
+                  Қолжетімділікке өтінім беру
                 </Button>
               </Link>
             ) : (
               <Button onClick={() => { setResult(null); setAnswers({}); }} className="w-full">
-                Попробовать снова
+                Қайта көру
               </Button>
             )}
           </Card>
@@ -129,12 +129,12 @@ export default function TestPage({
           href="/learn"
           className="inline-flex items-center gap-1 text-sm text-muted hover:text-primary mb-4"
         >
-          <ArrowLeft size={16} /> Назад
+          <ArrowLeft size={16} /> Артқа
         </Link>
 
         <h1 className="text-2xl font-bold text-primary mb-1">{test.title}</h1>
         {test.lesson && (
-          <p className="text-sm text-muted mb-6">Урок: {test.lesson.title}</p>
+          <p className="text-sm text-muted mb-6">Сабақ: {test.lesson.title}</p>
         )}
 
         <div className="space-y-4">
@@ -152,7 +152,7 @@ export default function TestPage({
                     setAnswers((prev) => ({ ...prev, [q.id]: e.target.value }))
                   }
                   className="w-full px-4 py-2 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary/30"
-                  placeholder="Ваш ответ"
+                  placeholder="Жауабыңыз"
                 />
               ) : q.type === "multiple" ? (
                 <div className="space-y-2">
@@ -209,7 +209,7 @@ export default function TestPage({
           size="lg"
           className="w-full mt-6"
         >
-          {submitting ? "Проверка..." : "Отправить ответы"}
+          {submitting ? "Тексерілуде..." : "Жауаптарды жіберу"}
         </Button>
       </main>
     </>

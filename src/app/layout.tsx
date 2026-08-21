@@ -8,9 +8,9 @@ const geist = Geist({
 });
 
 export const metadata: Metadata = {
-  title: "GlucoseOnline — Обучение кураторов",
+  title: "GlucoseOnline — Кураторларды оқыту",
   description:
-    "Платформа обучения кураторов GlucoseOnline. Видео-уроки, тесты и заявка на доступ к admin.glucoseonline.kz",
+    "GlucoseOnline кураторларын оқыту платформасы. Бейнесабақтар, тесттер және admin.glucoseonline.kz қолжетімділігіне өтінім",
 };
 
 export const viewport: Viewport = {
@@ -25,7 +25,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="ru">
+    <html lang="kk">
       <body className={`${geist.variable} antialiased min-h-screen`}>
         {children}
       </body>

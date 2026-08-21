@@ -25,14 +25,14 @@ async function buildKnowledgeContext(): Promise<string> {
   }
 
   if (knowledgeBase.length > 0) {
-    parts.push("\n=== База знаний ===");
+    parts.push("\n=== Білім базасы ===");
     for (const kb of knowledgeBase) {
       parts.push(`${kb.title}:\n${kb.content}`);
     }
   }
 
   if (lessons.length > 0) {
-    parts.push("\n=== Материалы уроков ===");
+    parts.push("\n=== Сабақ материалдары ===");
     for (const lesson of lessons) {
       parts.push(
         `[${lesson.topic.title}] ${lesson.title}:\n${lesson.description}`
@@ -41,6 +41,16 @@ async function buildKnowledgeContext(): Promise<string> {
   }
 
   return parts.join("\n\n");
+}
+
+function isEscalationAnswer(answer: string): boolean {
+  const lower = answer.toLowerCase();
+  return (
+    lower.includes("жауап таппадым") ||
+    lower.includes("маманға сұрақ") ||
+    lower.includes("не нашёл ответ") ||
+    lower.includes("задать вопрос специалисту")
+  );
 }
 
 export async function askChatbot(
@@ -62,20 +72,20 @@ export async function askChatbot(
     }
     return {
       answer:
-        "К сожалению, я не нашёл ответ на ваш вопрос. Нажмите «Задать вопрос человеку», и наш специалист свяжется с вами.",
+        "Өкінішке орай, сұрағыңызға жауап таппадым. «Адамға сұрақ қою» батырмасын басыңыз — маман сізбен байланысады.",
       escalated: true,
     };
   }
 
-  const systemPrompt = `Ты — помощник для кураторов платформы GlucoseOnline. Отвечай на вопросы о работе с админ-панелью admin.glucoseonline.kz на основе предоставленной базы знаний.
+  const systemPrompt = `Сен — GlucoseOnline платформасының кураторларына арналған көмекшісің. admin.glucoseonline.kz админ-панелімен жұмыс туралы сұрақтарға берілген білім базасы негізінде жауап бер.
 
-Правила:
-- Отвечай кратко и по делу на русском языке
-- Используй только информацию из базы знаний
-- Если ответа нет в базе знаний, скажи: "Я не нашёл ответ на этот вопрос. Рекомендую задать вопрос специалисту."
-- Не выдумывай информацию
+Ережелер:
+- Қазақ тілінде қысқа әрі нақты жауап бер
+- Тек білім базасындағы ақпаратты пайдалан
+- Білім базасында жауап жоқ болса, былай айт: "Бұл сұраққа жауап таппадым. Маманға сұрақ қоюды ұсынамын."
+- Ақпаратты ойдан шығарма
 
-База знаний:
+Білім базасы:
 ${context}`;
 
   try {
@@ -96,15 +106,13 @@ ${context}`;
     const answer =
       textBlock && "text" in textBlock
         ? textBlock.text
-        : "Не удалось получить ответ.";
+        : "Жауап алу мүмкін болмады.";
 
-    const escalated = answer.includes("не нашёл ответ") || answer.includes("задать вопрос специалисту");
-
-    return { answer, escalated };
+    return { answer, escalated: isEscalationAnswer(answer) };
   } catch {
     return {
       answer:
-        "Произошла ошибка при обработке вопроса. Попробуйте задать вопрос специалисту.",
+        "Сұрақты өңдеу кезінде қате орын алды. Маманға сұрақ қойып көріңіз.",
       escalated: true,
     };
   }

@@ -25,7 +25,7 @@ export async function POST(req: NextRequest) {
 
   if (!curator) {
     return NextResponse.json(
-      { error: "Укажите номер телефона" },
+      { error: "Телефон нөмірін көрсетіңіз" },
       { status: 400 }
     );
   }
